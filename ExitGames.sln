@@ -5,6 +5,12 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{33AD0EE8-D99B-4E14-8CD9-3F56ABEF97A2}") = "ExitGames", "ExitGames\ExitGames.funproj", "{42DB2010-D5EE-4EFE-B528-2CC2D80F5BD7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{ED3E7F94-C1B6-406E-858E-34C2EDA47332}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
