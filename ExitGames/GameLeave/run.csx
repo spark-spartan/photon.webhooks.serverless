@@ -12,29 +12,49 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, string
     log.Info($"C# HTTP trigger function processed a request. RequestUri={req.RequestUri}");
 
     // Get request body
-    GameCreateRequest body = await req.Content.ReadAsAsync<GameCreateRequest>();
+    GameLeaveRequest body = await req.Content.ReadAsAsync<GameLeaveRequest>();
     Azure azure = new Azure(log);
 
     // Set name to query string or body data
     string message;
-    if (!CreateGame.IsValid(body, out message))
+    if (!IsValid(body, out message))
     {
         log.Error($"{req.RequestUri} - {message}");
         return req.CreateResponse(HttpStatusCode.BadRequest,
             $"{req.RequestUri} - {message}");
     }
 
-    dynamic response;
-    if (!string.IsNullOrEmpty(body.Type) && body.Type == "Load")
+    if (body.IsInactive)
     {
-        response = CreateGame.GameLoad(body, appId, azure);
+        if (body.ActorNr > 0)
+        {
+            azure.GameInsert(appId, body.UserId, body.GameId, body.ActorNr);
+        }
     }
     else
     {
-        response = CreateGame.GameCreate(body, appId, azure);
+        azure.GameDelete(appId, body.UserId, body.GameId);
     }
 
-    var okMsg = $"{req.RequestUri} - {JsonConvert.SerializeObject(response)}";
+    var okMsg = $"{req.RequestUri} - {body.UserId} left {body.GameId}";
     log.Info(okMsg);
     return req.CreateResponse(HttpStatusCode.OK, okMsg);
+}
+
+private static bool IsValid(GameLeaveRequest request, out string message)
+{
+    if (string.IsNullOrEmpty(request.GameId))
+    {
+        message = "Missing GameId.";
+        return false;
+    }
+
+    if (string.IsNullOrEmpty(request.UserId))
+    {
+        message = "Missing UserId.";
+        return false;
+    }
+
+    message = "";
+    return true;
 }

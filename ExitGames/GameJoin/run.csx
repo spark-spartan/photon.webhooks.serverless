@@ -13,48 +13,8 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, string
 
     // Get request body
     GameLeaveRequest body = await req.Content.ReadAsAsync<GameLeaveRequest>();
-    Azure azure = new Azure(log);
 
-    // Set name to query string or body data
-    string message;
-    if (!IsValid(body, out message))
-    {
-        log.Error($"{req.RequestUri} - {message}");
-        return req.CreateResponse(HttpStatusCode.BadRequest,
-            $"{req.RequestUri} - {message}");
-    }
-
-    if (body.IsInactive)
-    {
-        if (body.ActorNr > 0)
-        {
-            azure.GameInsert(appId, body.UserId, body.GameId, body.ActorNr);
-        }
-    }
-    else
-    {
-        azure.GameDelete(appId, body.UserId, body.GameId);
-    }
-
-    var okMsg = $"{req.RequestUri} - {body.UserId} left {body.GameId}";
+    var okMsg = $"{req.RequestUri} - Recieved Game Join Request";
     log.Info(okMsg);
     return req.CreateResponse(HttpStatusCode.OK, okMsg);
-}
-
-private static bool IsValid(GameLeaveRequest request, out string message)
-{
-    if (string.IsNullOrEmpty(request.GameId))
-    {
-        message = "Missing GameId.";
-        return false;
-    }
-
-    if (string.IsNullOrEmpty(request.UserId))
-    {
-        message = "Missing UserId.";
-        return false;
-    }
-
-    message = "";
-    return true;
 }
