@@ -29,7 +29,7 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, string
     }
 
 
-        var okMsg = $"{req.RequestUri} - Recieved Game Join Request";
+    var okMsg = $"{req.RequestUri} - Recieved Game Join Request";
     log.Info(okMsg);
     return req.CreateResponse(HttpStatusCode.OK, okMsg);
 }
