@@ -1,5 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.Security.Policy;
+
+public class NetherRequest
+{
+    public string type { get; set; }
+    private static string version = "1.0.0";
+    public DateTime clientUtcTime { get; set; }
+    public string gameSessionId { get; set; }
+    public string gamerTag { get; set; }
+    //public Dictionary<string, string> properties { get; set; }
+}
 
 #region Requests
 
