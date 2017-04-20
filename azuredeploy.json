@@ -2,32 +2,32 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "alertrules_Failure_Anomalies___Photon.Turnbased_name": {
-      "defaultValue": "Failure Anomalies - Photon.Turnbased",
+    "netherUrl": {
+      "defaultValue": null,
+      "type": "string"
+    },
+    "Application_Insight_Name": {
+      "defaultValue": null,
       "type": "String"
     },
-    "components_Photon.Turnbased_name": {
-      "defaultValue": "Photon.Turnbased",
+    "NotificationHub_Namesapce": {
+      "defaultValue": null,
       "type": "String"
     },
-    "namespaces_TurnBased_name": {
-      "defaultValue": "TurnBased",
+    "storageAccounts_name": {
+      "defaultValue": null,
       "type": "String"
     },
-    "storageAccounts_exitgamesstore_name": {
-      "defaultValue": "exitgamesstore",
+    "WebAppPlan_Name": {
+      "defaultValue": null,
       "type": "String"
     },
-    "serverfarms_PhotonTurnbased_name": {
-      "defaultValue": "PhotonTurnbased",
+    "WebApp_Name": {
+      "defaultValue": null,
       "type": "String"
     },
-    "sites_ExitGamesWebHooks_name": {
-      "defaultValue": "ExitGamesWebHooks",
-      "type": "String"
-    },
-    "notificationHubs_pushnotification_name": {
-      "defaultValue": "TurnBased/pushnotification",
+    "NotificationHub_Name": {
+      "defaultValue": "null",
       "type": "String"
     }
   },
@@ -37,13 +37,13 @@
       "comments": "Generalized from resource: '/subscriptions/5afd17a6-6931-4828-9db5-7fd7b81d0b8f/resourceGroups/exit-games/providers/microsoft.insights/components/Photon.Turnbased'.",
       "type": "microsoft.insights/components",
       "kind": "web",
-      "name": "[parameters('components_Photon.Turnbased_name')]",
+      "name": "[parameters('Application_Insight_Name')]",
       "apiVersion": "2014-04-01",
       "location": "northeurope",
       "tags": {
       },
       "properties": {
-        "ApplicationId": "[parameters('components_Photon.Turnbased_name')]"
+        "ApplicationId": "[parameters('Application_Insight_Name')]"
       },
       "dependsOn": []
     },
@@ -54,7 +54,7 @@
         "name": "Free"
       },
       "kind": "NotificationHub",
-      "name": "[parameters('namespaces_TurnBased_name')]",
+      "name": "[parameters('NotificationHub_Namesapce')]",
       "apiVersion": "2014-09-01",
       "location": "North Europe",
       "tags": {},
@@ -71,7 +71,7 @@
         "tier": "Standard"
       },
       "kind": "Storage",
-      "name": "[parameters('storageAccounts_exitgamesstore_name')]",
+      "name": "[parameters('storageAccounts_name')]",
       "apiVersion": "2016-01-01",
       "location": "northeurope",
       "tags": {},
@@ -89,11 +89,11 @@
         "capacity": 1
       },
       "kind": "app",
-      "name": "[parameters('serverfarms_PhotonTurnbased_name')]",
+      "name": "[parameters('WebAppPlan_Name')]",
       "apiVersion": "2015-08-01",
       "location": "North Europe",
       "properties": {
-        "name": "[parameters('serverfarms_PhotonTurnbased_name')]",
+        "name": "[parameters('WebAppPlan_Name')]",
         "numberOfWorkers": 1
       },
       "dependsOn": []
@@ -101,28 +101,28 @@
     {
       "comments": "Generalized from resource: '/subscriptions/5afd17a6-6931-4828-9db5-7fd7b81d0b8f/resourcegroups/exit-games/providers/Microsoft.NotificationHubs/namespaces/TurnBased/notificationHubs/pushnotification'.",
       "type": "Microsoft.NotificationHubs/namespaces/notificationHubs",
-      "name": "[parameters('notificationHubs_pushnotification_name')]",
+      "name": "[concat(parameters('NotificationHub_Namesapce'), parameters('NotificationHub_Name'))]",
       "apiVersion": "2014-09-01",
       "location": "North Europe",
       "properties": {
         "authorizationRules": []
       },
       "dependsOn": [
-        "[resourceId('Microsoft.NotificationHubs/namespaces', parameters('namespaces_TurnBased_name'))]"
+        "[resourceId('Microsoft.NotificationHubs/namespaces', parameters('NotificationHub_Namesapce'))]"
       ]
     },
     {
       "comments": "Generalized from resource: '/subscriptions/5afd17a6-6931-4828-9db5-7fd7b81d0b8f/resourceGroups/exit-games/providers/Microsoft.Web/sites/ExitGamesWebHooks'.",
       "type": "Microsoft.Web/sites",
       "kind": "functionApp",
-      "name": "[parameters('sites_ExitGamesWebHooks_name')]",
+      "name": "[parameters('WebApp_Name')]",
       "apiVersion": "2015-08-01",
       "location": "North Europe",
       "tags": {
         "hidden-related:/subscriptions/5afd17a6-6931-4828-9db5-7fd7b81d0b8f/resourceGroups/exit-games/providers/Microsoft.Web/serverfarms/PhotonTurnbased": "empty"
       },
       "properties": {
-        "name": "[parameters('sites_ExitGamesWebHooks_name')]",
+        "name": "[parameters('WebApp_Name')]",
         "hostNames": [
           "exitgameswebhooks.azurewebsites.net"
         ],
@@ -132,24 +132,24 @@
         ],
         "hostNameSslStates": [
           {
-            "name": "[concat(parameters('sites_ExitGamesWebHooks_name'),'exitgameswebhooks.azurewebsites.net')]",
+            "name": "[concat(parameters('WebApp_Name'),'exitgameswebhooks.azurewebsites.net')]",
             "sslState": 0,
             "thumbprint": null,
             "ipBasedSslState": 0
           },
           {
-            "name": "[concat(parameters('sites_ExitGamesWebHooks_name'),'exitgameswebhooks.scm.azurewebsites.net')]",
+            "name": "[concat(parameters('WebApp_Name'),'exitgameswebhooks.scm.azurewebsites.net')]",
             "sslState": 0,
             "thumbprint": null,
             "ipBasedSslState": 0
           }
         ],
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_PhotonTurnbased_name'))]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('WebAppPlan_Name'))]",
         "siteConfig": {
           "connectionStrings": [
             {
               "name": "AzureBlob",
-              "connectionString": "[Concat('DefaultEndpointsProtocol=https;AccountName=',parameters('storageAccounts_exitgamesstore_name'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_exitgamesstore_name')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value)]"
+              "connectionString": "[Concat('DefaultEndpointsProtocol=https;AccountName=',parameters('storageAccounts_name'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_name')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value)]"
             }
           ]
         }
@@ -160,17 +160,17 @@
           "name": "web",
           "type": "sourcecontrols",
           "dependsOn": [
-            "[resourceId('Microsoft.Web/Sites', parameters('sites_ExitGamesWebHooks_name'))]"
+            "[resourceId('Microsoft.Web/Sites', parameters('WebApp_Name'))]"
           ],
           "properties": {
             "RepoUrl": "https://github.com/sandy-may/photon.webhooks.serverless",
-            "branch": "master",
+            "branch": "nether",
             "IsManualIntegration": true
           }
         }
       ],
       "dependsOn": [
-        "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_PhotonTurnbased_name'))]"
+        "[resourceId('Microsoft.Web/serverfarms', parameters('WebAppPlan_Name'))]"
       ]
     }
   ]

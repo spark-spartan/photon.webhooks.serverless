@@ -23,7 +23,9 @@ In the format `localhost:{port}/api/{appId}/Game{Controller}`
 A [PostMan](https://www.getpostman.com/) Collection with examples is include in the Repo
 
 ## Deploy to Azure
-Hit this link to create all infrastructure required to run locally and in Azure.  
+If you wish to run the sample linked with Nether please follow the steps to deploy and setup the code for Nether first...
+
+Hit this link to create all infrastructure required for Photon Cloud Serverless to run locally and in Azure.  
  
 [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/)
 
@@ -45,3 +47,13 @@ however connection strings will be required for Storage Account & Notification H
 Azure Notification Hub requires clients to be registered with the [back-end service](https://docs.microsoft.com/en-us/azure/notification-hubs/notification-hubs-ios-aspnet-register-user-from-backend-to-push-notification),
 as well as notifications for [specific client OS](https://docs.microsoft.com/en-us/azure/notification-hubs/notification-hubs-aspnet-cross-platform-notification).
 A template has been created for messages in `Common/HubMessage.csx` & a template for sending a message in `Common/NotificationHub.csx`, implement your own logic here for sending push notifications to specific clients.
+
+## Photon Cloud with [Nether](https://github.com/MicrosoftDX/nether)
+
+This Functions sample leverages the use of the Nether Project to use addition powers of the Microsoft Cloud. 
+The GameJoin & GameLeave controller have been lined to [Game-Start](https://github.com/MicrosoftDX/nether/blob/master/documentation/api/analytics/events/game-start.md) & [Game-Stop](https://github.com/MicrosoftDX/nether/blob/master/documentation/api/analytics/events/game-stop.md) endpoints in Nether's Analytics Events API to showcase Nether & Photon,
+issuing a call to either of these controllers will issue a API call to your hosted (in Azure) version of the Nether Project to push the Game Events onto an Event Hub. 
+From here you can link into Azure Stream Analytic to do more with your game event data in the cloud. 
+
+Start by deploying the Nether Project to Azure [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMicrosoftDX%2Fnether%2Fmaster%2Fdeployment%2Fnether-deploy-quickstart.json)
+From [Azure Portal](http://portal.azure.com) go to Resource Group -> Name of the recource group you deployed Nether to -> Name of the app service you created -> and copy the URL from Overview. Place this Url in `appsettings.json` inside `"AzureNetherUrl": "{your url here}"`
