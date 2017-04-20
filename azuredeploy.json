@@ -6,6 +6,44 @@
       "defaultValue": null,
       "type": "string"
     },
+    "sku": {
+      "type": "string",
+      "allowedValues": [
+        "Free",
+        "Shared",
+        "Basic",
+        "Standard"
+      ],
+      "defaultValue": "Standard",
+      "metadata": {
+        "description": "The pricing tier for the hosting plan."
+      }
+    },
+    "workerSize": {
+      "type": "string",
+      "allowedValues": [
+        "0",
+        "1",
+        "2"
+      ],
+      "defaultValue": "0",
+      "metadata": {
+        "description": "The instance size of the hosting plan (small, medium, or large)."
+      }
+    },
+    "storageAccountType": {
+      "type": "string",
+      "defaultValue": "Standard_LRS",
+      "allowedValues": [
+        "Standard_LRS",
+        "Standard_GRS",
+        "Standard_ZRS",
+        "Premium_LRS"
+      ],
+      "metadata": {
+        "description": "Storage Account type"
+      }
+    },
     "Application_Insight_Name": {
       "defaultValue": null,
       "type": "String"
@@ -68,37 +106,27 @@
     {
       "comments": "Generalized from resource: '/subscriptions/5afd17a6-6931-4828-9db5-7fd7b81d0b8f/resourceGroups/exit-games/providers/Microsoft.Storage/storageAccounts/exitgamesstore'.",
       "type": "Microsoft.Storage/storageAccounts",
-      "sku": {
-        "name": "Standard_GRS",
-        "tier": "Standard"
-      },
-      "kind": "Storage",
       "name": "[parameters('storageAccounts_name')]",
-      "apiVersion": "2016-01-01",
-      "location": "northeurope",
-      "tags": {},
-      "properties": {},
-      "dependsOn": []
+      "apiVersion": "2015-06-15",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "accountType": "[parameters('storageAccountType')]"
+      }
     },
     {
       "comments": "Generalized from resource: '/subscriptions/5afd17a6-6931-4828-9db5-7fd7b81d0b8f/resourceGroups/exit-games/providers/Microsoft.Web/serverfarms/PhotonTurnbased'.",
       "type": "Microsoft.Web/serverfarms",
-      "sku": {
-        "name": "S1",
-        "tier": "Standard",
-        "size": "S1",
-        "family": "S",
-        "capacity": 1
-      },
-      "kind": "app",
+      "sku": [ "parameters('sku')" ],
       "name": "[parameters('WebAppPlan_Name')]",
       "apiVersion": "2015-08-01",
       "location": "North Europe",
       "properties": {
         "name": "[parameters('WebAppPlan_Name')]",
+        "sku": "[parameters('sku')]",
+        "workerSize": "[parameters('workerSize')]",
+        "hostingEnvironment": "",
         "numberOfWorkers": 1
-      },
-      "dependsOn": []
+      }
     },
     {
       "comments": "Generalized from resource: '/subscriptions/5afd17a6-6931-4828-9db5-7fd7b81d0b8f/resourcegroups/exit-games/providers/Microsoft.NotificationHubs/namespaces/TurnBased/notificationHubs/pushnotification'.",
@@ -167,7 +195,7 @@
             },
             {
               "name": "FUNCTIONS_EXTENSION_VERSION",
-              "value": "~1"
+              "value": "latest"
             },
             {
               "name": "WEBSITE_NODE_DEFAULT_VERSION",
@@ -189,7 +217,7 @@
       },
       "resources": [
         {
-          "apiVersion": "2014-04-01",
+          "apiVersion": "2016-03-01",
           "name": "web",
           "type": "sourcecontrols",
           "dependsOn": [
@@ -198,7 +226,7 @@
           "properties": {
             "RepoUrl": "https://github.com/sandy-may/photon.webhooks.serverless",
             "branch": "nether",
-            "IsManualIntegration": true
+            "IsManualIntegration": false
           }
         }
       ],
