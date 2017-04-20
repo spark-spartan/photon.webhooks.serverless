@@ -54,7 +54,7 @@
       "kind": "web",
       "name": "[parameters('Application_Insight_Name')]",
       "apiVersion": "2014-04-01",
-      "location": "northeurope",
+      "location": "[resourceGroup().location]",
       "tags": {
       },
       "properties": {
@@ -70,7 +70,7 @@
       "kind": "NotificationHub",
       "name": "[parameters('NotificationHub_Namesapce')]",
       "apiVersion": "2014-09-01",
-      "location": "North Europe",
+      "location": "[resourceGroup().location]",
       "tags": {},
       "properties": {
         "namespaceType": "NotificationHub"
@@ -98,7 +98,7 @@
       "kind": "app",
       "name": "[parameters('WebAppPlan_Name')]",
       "apiVersion": "2015-08-01",
-      "location": "North Europe",
+      "location": "[resourceGroup().location]",
       "properties": {
         "name": "[parameters('WebAppPlan_Name')]",
         "numberOfWorkers": 1
@@ -109,7 +109,7 @@
       "type": "Microsoft.NotificationHubs/namespaces/notificationHubs",
       "name": "[concat(parameters('NotificationHub_Namesapce'), '/' ,parameters('NotificationHub_Name'))]",
       "apiVersion": "2014-09-01",
-      "location": "resourceGroup().location",
+      "location": "[resourceGroup().location]",
       "properties": {
         "authorizationRules": []
       },
