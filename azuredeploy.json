@@ -133,7 +133,7 @@
       "type": "Microsoft.NotificationHubs/namespaces/notificationHubs",
       "name": "[concat(parameters('NotificationHub_Namesapce'), '/' ,parameters('NotificationHub_Name'))]",
       "apiVersion": "2014-09-01",
-      "location": "North Europe",
+      "location": "resourceGroup().location",
       "properties": {
         "authorizationRules": []
       },
@@ -147,7 +147,7 @@
       "kind": "functionApp",
       "name": "[parameters('WebApp_Name')]",
       "apiVersion": "2015-08-01",
-      "location": "North Europe",
+      "location": "[resourceGroup().location]",
       "tags": {
         "hidden-related:/subscriptions/5afd17a6-6931-4828-9db5-7fd7b81d0b8f/resourceGroups/exit-games/providers/Microsoft.Web/serverfarms/PhotonTurnbased": "empty"
       },
@@ -226,7 +226,7 @@
           "properties": {
             "RepoUrl": "https://github.com/sandy-may/photon.webhooks.serverless",
             "branch": "nether",
-            "IsManualIntegration": false
+            "IsManualIntegration": true
           }
         }
       ],
