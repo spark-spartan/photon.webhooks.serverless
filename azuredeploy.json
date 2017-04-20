@@ -54,7 +54,7 @@
       "kind": "web",
       "name": "[parameters('Application_Insight_Name')]",
       "apiVersion": "2014-04-01",
-      "location": "[resourceGroup().location]",
+      "location": "North Europe",
       "tags": {
       },
       "properties": {
@@ -70,7 +70,7 @@
       "kind": "NotificationHub",
       "name": "[parameters('NotificationHub_Namesapce')]",
       "apiVersion": "2014-09-01",
-      "location": "[resourceGroup().location]",
+      "location": "North Europe",
       "tags": {},
       "properties": {
         "namespaceType": "NotificationHub"
@@ -81,7 +81,7 @@
       "type": "Microsoft.Storage/storageAccounts",
       "name": "[parameters('storageAccounts_name')]",
       "apiVersion": "2015-06-15",
-      "location": "[resourceGroup().location]",
+      "location": "North Europe",
       "properties": {
         "accountType": "[parameters('storageAccountType')]"
       }
@@ -98,7 +98,7 @@
       "kind": "app",
       "name": "[parameters('WebAppPlan_Name')]",
       "apiVersion": "2015-08-01",
-      "location": "[resourceGroup().location]",
+      "location": "North Europe",
       "properties": {
         "name": "[parameters('WebAppPlan_Name')]",
         "numberOfWorkers": 1
@@ -109,7 +109,7 @@
       "type": "Microsoft.NotificationHubs/namespaces/notificationHubs",
       "name": "[concat(parameters('NotificationHub_Namesapce'), '/' ,parameters('NotificationHub_Name'))]",
       "apiVersion": "2014-09-01",
-      "location": "[resourceGroup().location]",
+      "location": "North Europe",
       "properties": {
         "authorizationRules": []
       },
@@ -122,7 +122,7 @@
       "kind": "functionApp",
       "name": "[parameters('WebApp_Name')]",
       "apiVersion": "2015-08-01",
-      "location": "[resourceGroup().location]",
+      "location": "North Europe",
       "tags": {
         "hidden-related:/subscriptions/5afd17a6-6931-4828-9db5-7fd7b81d0b8f/resourceGroups/exit-games/providers/Microsoft.Web/serverfarms/PhotonTurnbased": "empty"
       },
