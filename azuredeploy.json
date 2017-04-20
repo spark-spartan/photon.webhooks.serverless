@@ -6,19 +6,6 @@
       "defaultValue": null,
       "type": "string"
     },
-    "sku": {
-      "type": "string",
-      "allowedValues": [
-        "Free",
-        "Shared",
-        "Basic",
-        "Standard"
-      ],
-      "defaultValue": "Standard",
-      "metadata": {
-        "description": "The pricing tier for the hosting plan."
-      }
-    },
     "storageAccountType": {
       "type": "string",
       "defaultValue": "Standard_LRS",
@@ -100,14 +87,22 @@
     },
     {
       "type": "Microsoft.Web/serverfarms",
-      "apiVersion": "2015-08-01",
-      "location": "[resourceGroup().location]",
+      "sku": {
+        "name": "S1",
+        "tier": "Standard",
+        "size": "S1",
+        "family": "S",
+        "capacity": 1
+      },
+      "kind": "app",
       "name": "[parameters('WebAppPlan_Name')]",
-      "sku": "[parameters('sku')]",
+      "apiVersion": "2015-08-01",
+      "location": "North Europe",
       "properties": {
         "name": "[parameters('WebAppPlan_Name')]",
         "numberOfWorkers": 1
-      }
+      },
+      "dependsOn": []
     },
     {
       "type": "Microsoft.NotificationHubs/namespaces/notificationHubs",
