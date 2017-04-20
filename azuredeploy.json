@@ -116,7 +116,6 @@
     {
       "comments": "Generalized from resource: '/subscriptions/5afd17a6-6931-4828-9db5-7fd7b81d0b8f/resourceGroups/exit-games/providers/Microsoft.Web/serverfarms/PhotonTurnbased'.",
       "type": "Microsoft.Web/serverfarms",
-      "sku": [ "parameters('sku')" ],
       "name": "[parameters('WebAppPlan_Name')]",
       "apiVersion": "2015-08-01",
       "location": "North Europe",
