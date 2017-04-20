@@ -101,7 +101,7 @@
     {
       "comments": "Generalized from resource: '/subscriptions/5afd17a6-6931-4828-9db5-7fd7b81d0b8f/resourcegroups/exit-games/providers/Microsoft.NotificationHubs/namespaces/TurnBased/notificationHubs/pushnotification'.",
       "type": "Microsoft.NotificationHubs/namespaces/notificationHubs",
-      "name": "[concat(parameters('NotificationHub_Namesapce'), parameters('NotificationHub_Name'))]",
+      "name": "[concat(parameters('NotificationHub_Namesapce'), '/' ,parameters('NotificationHub_Name'))]",
       "apiVersion": "2014-09-01",
       "location": "North Europe",
       "properties": {
