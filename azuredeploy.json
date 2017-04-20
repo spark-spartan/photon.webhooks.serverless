@@ -74,7 +74,6 @@
   },
   "resources": [
     {
-      "comments": "Generalized from resource: '/subscriptions/5afd17a6-6931-4828-9db5-7fd7b81d0b8f/resourceGroups/exit-games/providers/microsoft.insights/components/Photon.Turnbased'.",
       "type": "microsoft.insights/components",
       "kind": "web",
       "name": "[parameters('Application_Insight_Name')]",
@@ -88,7 +87,6 @@
       "dependsOn": []
     },
     {
-      "comments": "Generalized from resource: '/subscriptions/5afd17a6-6931-4828-9db5-7fd7b81d0b8f/resourcegroups/exit-games/providers/Microsoft.NotificationHubs/namespaces/TurnBased'.",
       "type": "Microsoft.NotificationHubs/namespaces",
       "sku": {
         "name": "Free"
@@ -104,7 +102,6 @@
       "dependsOn": []
     },
     {
-      "comments": "Generalized from resource: '/subscriptions/5afd17a6-6931-4828-9db5-7fd7b81d0b8f/resourceGroups/exit-games/providers/Microsoft.Storage/storageAccounts/exitgamesstore'.",
       "type": "Microsoft.Storage/storageAccounts",
       "name": "[parameters('storageAccounts_name')]",
       "apiVersion": "2015-06-15",
@@ -126,7 +123,6 @@
       }
     },
     {
-      "comments": "Generalized from resource: '/subscriptions/5afd17a6-6931-4828-9db5-7fd7b81d0b8f/resourcegroups/exit-games/providers/Microsoft.NotificationHubs/namespaces/TurnBased/notificationHubs/pushnotification'.",
       "type": "Microsoft.NotificationHubs/namespaces/notificationHubs",
       "name": "[concat(parameters('NotificationHub_Namesapce'), '/' ,parameters('NotificationHub_Name'))]",
       "apiVersion": "2014-09-01",
@@ -139,8 +135,6 @@
       ]
     },
     {
-      "comments": "Generalized from resource: '/subscriptions/5afd17a6-6931-4828-9db5-7fd7b81d0b8f/resourceGroups/exit-games/providers/Microsoft.Web/sites/ExitGamesWebHooks'.",
-      "type": "Microsoft.Web/sites",
       "kind": "functionApp",
       "name": "[parameters('WebApp_Name')]",
       "apiVersion": "2015-08-01",
