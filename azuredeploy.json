@@ -26,6 +26,7 @@
     "NotificationHub_Namesapce": {
       "defaultValue": null,
       "type": "String"
+
     },
     "storageAccounts_name": {
       "defaultValue": null,
