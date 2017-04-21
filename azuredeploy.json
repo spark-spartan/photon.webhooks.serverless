@@ -188,7 +188,7 @@
             "[resourceId('Microsoft.Web/Sites', parameters('WebApp_Name'))]"
           ],
           "properties": {
-            "RepoUrl": "https://github.com/sandy-may/photon.webhooks.serverless",
+            "RepoUrl": "https://github.com/PhotonEngine/photon.realtime.webhooks.serverless",
             "branch": "master",
             "IsManualIntegration": true
           }
